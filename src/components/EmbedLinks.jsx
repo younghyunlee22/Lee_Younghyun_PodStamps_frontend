@@ -3,6 +3,7 @@ import { useEffect, useState } from 'react';
 import axios from 'axios';
 import SpotifyPlayer from './SpotifyPlayer';
 
+const BASE_URL = import.meta.env.VITE_REACT_APP_BASE_URL || 'http://localhost:8000'
 const EmbedLinks = () => {
     const [embedLinks, setEmbedLinks] = useState([]);
 
@@ -10,7 +11,7 @@ const EmbedLinks = () => {
         const fetchEmbedLinks = async () => {
             try {
                 // Make GET request to fetch embed links from backend
-                const response = await axios.get('http://localhost:8000/api/quicksave');
+                const response = await axios.get(`${BASE_URL}/api/quicksave`);
                 const { embedLinks } = response.data;
 
                 // Set the embedLinks state with the received data
