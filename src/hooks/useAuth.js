@@ -7,13 +7,14 @@ export default function useAuth(code) {
     const [expiresIn, setExpiresIn] = useState();
 
     console.log("code:", code);
+    const BASE_URL = import.meta.env.VITE_REACT_APP_BASE_URL || 'http://localhost:8000'
 
     useEffect(() => {
         let ignore = false;
         console.log("ignore", ignore);
         if (!ignore) {
             axios
-                .post("http://localhost:8000/signin", {
+                .post(`${BASE_URL}/signin`, {
                     code,
                 })
                 .then((res) => {
@@ -47,7 +48,7 @@ export default function useAuth(code) {
         if (!refreshToken || !expiresIn) return;
         const interval = setInterval(() => {
             axios
-                .post("http://localhost:8000/refresh", {
+                .post(`${BASE_URL}/refresh`, {
                     refreshToken,
                 })
                 .then((res) => {
